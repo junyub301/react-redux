@@ -64,7 +64,7 @@ yarn add @reduxjs/toolkit
 			import store from "./store";
 
 			ReactDOM.render(
-				<Provider stroe={store}>
+				<Provider store={store}>
 				<App />
 				</Provider>,
 				document.getElementById("root")
