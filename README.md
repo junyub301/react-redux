@@ -21,7 +21,7 @@ yarn add @reduxjs/toolkit
 
 ## 기본 함수
   ### connect? : (mapStateToPros? : mapDispatchToProps?, mergeProps?, options?)
-   components들을 store에 연결시켜 준다.
+  components들을 store에 연결시켜 준다.
    
    #### mapStateToProps? : (state:Object, ownProps?:Object) => Object
    - store에서 state를 가져와 components의 props에 넣는다.
@@ -67,8 +67,8 @@ yarn add @reduxjs/toolkit
             <App />
           </Provider>,
           document.getElementById("root")
-        );   
-      ```
+        );
+        ```   
    [index.js]
         
       ```javascript
@@ -98,52 +98,4 @@ yarn add @reduxjs/toolkit
       ```
    [store.js]
 
-   ### Redux Toolkit 적용 
-   createAction() 적용
-        ```javascript
-            import {createStore} from "redux";
-            import{createAction} from "@reduxjs/toolkit";
-            const addToDo = createAction("ADD");
-            const reducer = (state =[], action) => {
-                switch(action.type) {
-                case addToDo.type:
-                    return [{text:action.payload, id:Date.now() }, ...state];
-                ...
-                default: return state;
-                }
-            }
-        ```
-
-   createReducer() 적용 
-     - createReducer에서 작업할때는 새로운 state를 리턴할 수 있고, state를 mutate 할 수 있다. 
-     - return할 떄는 꼭 새로운 state여야 하고, state를 mutate할 때는 아무거도 return을 하지 않아야 한다.
-      
-        ```javascript
-            import {createStore} from "redux";
-            import{createAction} from "@reduxjs/toolkit";
-            const addToDo = createAction("ADD");
-            const reducer = createReducer([],{
-                [addTodo] : (state,action) => {
-                    state.push({text:action.payload, id:Date.now() });
-                }
-            ...
-            }
-            ...
-        ```    
-    
-    configureStore() / createSlice() 적용
-    
-        ```javascript
-            import { createSlice, configureStore} from "@reduxjs/toolkit";
-            const toDos = createSlice({
-                name: "toDosReducer",
-                initialState: [],
-                reducers: {
-                    add: (state, action) => {
-                        state.push({ text: action.payload, id: Date.now() });
-                    },
-                remove: (state, action) =>
-                    state.filter((toDo) => toDo.id !== parseInt(action.payload)),
-                },
-            });
-        ```
+   
