@@ -11,13 +11,13 @@ yarn add react-redux
 ```
 
 ## 기본 함수
-  ### connect()
+  ### connect? : (mapStateToPros? : mapDispatchToProps?, mergeProps?, options?)
    components들을 store에 연결시켜 준다.
    
-   #### mapStateToProps? : (state, ownProps?) => Object
+   #### mapStateToProps? : (state:Object, ownProps?:Object) => Object
       - store에서 state를 가져와 components의 props에 넣는다.
       - 첫번째 파라미터는 Redux store에서 온 state
-      - 두번째 파라미터 components의 props
+      - 두번째 파라미터는 components의 props
     ```
       import {connect} from "react-redux";
       ...
@@ -25,7 +25,25 @@ yarn add react-redux
       
       export default connect(mapStateToProps)(Component)
     ```
-
+   ### mapDispatchToProps? (dispatch:function, ownProps?:Object) => Object:
+      - 첫번째 파라미터는 Redux store에서 온 dispatch
+      - 두번쨰 파라미터는 components의 props
+      ```javasrcipt
+        import {connect} from "react-redux";
+      ...
+      function mapStateToProps(state) {return {toDos:state}}
+      
+      function mapDispatchToProps(dispatch) {
+        return {
+          addToDo: (text) => dispatch(add(text)),
+        };
+      }
+      
+      export default connect(mapStateToProps,mapDispatchToProps)(Component)
+      // mapDispatchToPros만 필요할 경우
+      // export default connect(null,mapDispatchToProps)(Component)
+      ```
+   
 ## 예제
 
 ```javascript
