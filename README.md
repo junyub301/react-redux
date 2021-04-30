@@ -118,8 +118,8 @@ yarn add @reduxjs/toolkit
 		```
    		[store.js]
    - createReducer() 적용 
-   	- createReducer에서 작업할때는 새로운 state를 리턴할 수 있고, state를 mutate 할 수 있다. 
-	- return할 떄는 꼭 새로운 state여야 하고, state를 mutate할 때는 아무거도 return을 하지 않아야 한다.
+     - createReducer에서 작업할때는 새로운 state를 리턴할 수 있고, state를 mutate 할 수 있다. 
+     - return할 떄는 꼭 새로운 state여야 하고, state를 mutate할 때는 아무거도 return을 하지 않아야 한다.
 
 		```javascript
 			import {createStore} from "redux";
