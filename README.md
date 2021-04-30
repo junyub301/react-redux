@@ -12,7 +12,7 @@ yarn add react-redux
 
 ## 기본 함수
   ### connect()
-  > components들을 store에 연결시켜 준다.
+   components들을 store에 연결시켜 준다.
    
    #### mapStateToProps? : (state, ownProps?) => Object
       - store에서 state를 가져와 components의 props에 넣는다.
