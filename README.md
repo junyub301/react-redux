@@ -24,19 +24,19 @@ yarn add @reduxjs/toolkit
    components들을 store에 연결시켜 준다.
    
    #### mapStateToProps? : (state:Object, ownProps?:Object) => Object
-      - store에서 state를 가져와 components의 props에 넣는다.
-      - 첫번째 파라미터는 Redux store에서 온 state
-      - 두번째 파라미터는 components의 props
-    ```javascript
-      import {connect} from "react-redux";
-      ...
-      function mapStateToProps(state, ownProps) {return {toDos:state}}
-      
-      export default connect(mapStateToProps)(Component)
-    ```
+   - store에서 state를 가져와 components의 props에 넣는다.
+   - 첫번째 파라미터는 Redux store에서 온 state
+   - 두번째 파라미터는 components의 props
+      ```javascript
+        import {connect} from "react-redux";
+        ...
+        function mapStateToProps(state, ownProps) {return {toDos:state}}
+
+        export default connect(mapStateToProps)(Component)
+      ```
    ### mapDispatchToProps? (dispatch:function, ownProps?:Object) => Object:
-      - 첫번째 파라미터는 Redux store에서 온 dispatch
-      - 두번쨰 파라미터는 components의 props
+   - 첫번째 파라미터는 Redux store에서 온 dispatch
+   - 두번쨰 파라미터는 components의 props
       ```javascript
         import {connect} from "react-redux";
         ...
@@ -54,15 +54,14 @@ yarn add @reduxjs/toolkit
       ```
    
 ## 예제
-   ### Redux Toolkit 적용 전
-   store변화에 따라 subscribe하고 store가 변경될때 모든게 다시 render하기 위해 index.js에 다음과 같이 `Provider, store` 추가
+  ### Redux Toolkit 적용 전
+  store변화에 따라 subscribe하고 store가 변경될때 모든게 다시 render하기 위해 index.js에 다음과 같이 ```Provider, store``` 추가
       ```javascript
         import React from "react";
         import ReactDOM from "react-dom";
         import App from "./components/App";
         import { Provider } from "react-redux";
         import store from "./store";
-          
         ReactDOM.render(
           <Provider stroe={store}>
             <App />
@@ -122,9 +121,7 @@ yarn add @reduxjs/toolkit
         ```javascript
             import {createStore} from "redux";
             import{createAction} from "@reduxjs/toolkit";
-            
             const addToDo = createAction("ADD");
-            
             const reducer = createReducer([],{
                 [addTodo] : (state,action) => {
                     state.push({text:action.payload, id:Date.now() });
@@ -133,10 +130,11 @@ yarn add @reduxjs/toolkit
             }
             ...
         ```    
+    
     configureStore() / createSlice() 적용
+    
         ```javascript
             import { createSlice, configureStore} from "@reduxjs/toolkit";
-            
             const toDos = createSlice({
                 name: "toDosReducer",
                 initialState: [],
