@@ -37,7 +37,7 @@ yarn add @reduxjs/toolkit
    ### mapDispatchToProps? (dispatch:function, ownProps?:Object) => Object:
       - 첫번째 파라미터는 Redux store에서 온 dispatch
       - 두번쨰 파라미터는 components의 props
-      ```javasrcipt
+      ```javascript
         import {connect} from "react-redux";
         ...
         function mapStateToProps(state) {return {toDos:state}}
@@ -54,25 +54,24 @@ yarn add @reduxjs/toolkit
       ```
    
 ## 예제
-  ### Redux Toolkit 적용 전
-  store변화에 따라 subscribe하고 store가 변경될때 모든게 다시 render하기 위해 index.js에 다음과 같이 `Provider, store`추가
+   ### Redux Toolkit 적용 전
+   store변화에 따라 subscribe하고 store가 변경될때 모든게 다시 render하기 위해 index.js에 다음과 같이 `Provider, store`추가
       ```javascript
         import React from "react";
         import ReactDOM from "react-dom";
         import App from "./components/App";
         import { Provider } from "react-redux";
         import store from "./store";
-
+          
         ReactDOM.render(
           <Provider stroe={store}>
             <App />
           </Provider>,
           document.getElementById("root")
-        );
-        
+        );   
       ```
-  [index.js]
-
+   [index.js]
+        
       ```javascript
         import {createStore} from "redux";
         const ADD = "ADD"
@@ -96,13 +95,13 @@ yarn add @reduxjs/toolkit
            addToDo,
            deleteToDo,
          };
-         export default store
+         export default store;
       ```
-  [store.js]
+   [store.js]
 
    ### Redux Toolkit 적용 
    createAction() 적용
-     ```javascript
+     ``````javascript
        import {createStore} from "redux";
        import{createAction} from "@reduxjs/toolkit";
        const addToDo = createAction("ADD");
@@ -119,7 +118,7 @@ yarn add @reduxjs/toolkit
    createReducer() 적용 
       - createReducer에서 작업할때는 새로운 state를 리턴할 수 있고, state를 mutate 할 수 있다. 
       - return할 떄는 꼭 새로운 state여야 하고, state를 mutate할 때는 아무거도 return을 하지 않아야 한다.
-   
+      
      ```javascript
         import {createStore} from "redux";
         import{createAction} from "@reduxjs/toolkit";
@@ -136,7 +135,6 @@ yarn add @reduxjs/toolkit
      ```    
    configureStore() / createSlice() 적용
      ```javascript
-     
       import { createSlice, configureStore} from "@reduxjs/toolkit";
       
       const toDos = createSlice({
