@@ -54,48 +54,105 @@ yarn add @reduxjs/toolkit
       ```
    
 ## 예제
-  ### Redux Toolkit 적용 전
-  store변화에 따라 subscribe하고 store가 변경될때 모든게 다시 render하기 위해 index.js에 다음과 같이 ```Provider, store``` 추가
-      ```javascript
-        import React from "react";
-        import ReactDOM from "react-dom";
-        import App from "./components/App";
-        import { Provider } from "react-redux";
-        import store from "./store";
-        ReactDOM.render(
-          <Provider stroe={store}>
-            <App />
-          </Provider>,
-          document.getElementById("root")
-        );
-        ```   
-   [index.js]
-        
-      ```javascript
-        import {createStore} from "redux";
-        const ADD = "ADD"
-         // action creator
-         const addToDo = (text) => {
-           return {
-             type: ADD_TODO,
-             text,
-           };
-         };
-         const reducer = (state =[], action) => {
-           switch(action.type) {
-             case ADD:
-               return [{text:action.text, id:Date.now() }, ...state];
-             ...
-             default: return state;
-           }
-         }
-         const store = createStore(reducer);
-         export const actionCreateors = {
-           addToDo,
-           deleteToDo,
-         };
-         export default store;
-      ```
-   [store.js]
+   ### Redux Toolkit 적용 전
+   - store변화에 따라 subscribe하고 store가 변경될때 모든게 다시 render하기 위해 index.js에 다음과 같이 추가
+		```javascript
+			import React from "react";
+			import ReactDOM from "react-dom";
+			import App from "./components/App";
+			import { Provider } from "react-redux";
+			import store from "./store";
 
-   
+			ReactDOM.render(
+				<Provider stroe={store}>
+				<App />
+				</Provider>,
+				document.getElementById("root")
+		);
+		```   
+   		[index.js]
+        
+      	```javascript
+			import {createStore} from "redux";
+			
+			const ADD = "ADD"
+			 // action creator
+			 const addToDo = (text) => {
+			   return {
+				 type: ADD_TODO,
+				 text,
+			   };
+			 };
+			 const reducer = (state =[], action) => {
+			   switch(action.type) {
+				 case ADD:
+				   return [{text:action.text, id:Date.now() }, ...state];
+				 ...
+				 default: return state;
+			   }
+			 }
+			 const store = createStore(reducer);
+			 export const actionCreateors = {
+			   addToDo,
+			   deleteToDo,
+			 };
+			 export default store;
+      	```
+   		[store.js]
+
+   ### Redux Toolkit 적용 
+   - createAction() 적용
+		```javascript
+			import {createStore} from "redux";
+			import{createAction} from "@reduxjs/toolkit";
+			
+			const addToDo = createAction("ADD");
+			const reducer = (state =[], action) => {
+				switch(action.type) {
+					case addToDo.type:
+					return [{text:action.payload, id:Date.now() }, ...state];
+					...
+					default: return state;
+				}
+			}
+		```
+   		[store.js]
+   - createReducer() 적용 
+   	- createReducer에서 작업할때는 새로운 state를 리턴할 수 있고, state를 mutate 할 수 있다. 
+	- return할 떄는 꼭 새로운 state여야 하고, state를 mutate할 때는 아무거도 return을 하지 않아야 한다.
+
+		```javascript
+			import {createStore} from "redux";
+			import{createAction} from "@reduxjs/toolkit";
+			
+			const addToDo = createAction("ADD");
+			const reducer = createReducer([],{
+				[addTodo] : (state,action) => {
+				state.push({text:action.payload, id:Date.now() });
+				}
+				...
+			}
+			...
+		```    
+		[store.js]
+   - configureStore() / createSlice() 적용
+
+		```javascript
+			import { createSlice, configureStore} from "@reduxjs/toolkit";
+			
+			const toDos = createSlice({
+				name: "toDosReducer",
+				initialState: [],
+				reducers: {
+					add: (state, action) => {
+						state.push({ text: action.payload, id: Date.now() });
+					},
+					remove: (state, action) => state.filter((toDo) => toDo.id !== parseInt(action.payload)),
+				},
+			});
+			
+			const store = configureStore({ reducer: toDos.reducer });
+			
+			export const { add,remove} = todos.actions;
+		```
+		[store.js]
