@@ -68,7 +68,7 @@ yarn add @reduxjs/toolkit
 				<App />
 				</Provider>,
 				document.getElementById("root")
-		);
+			);
 		```   
    		[index.js]
         
